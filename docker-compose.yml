@@ -22,7 +22,7 @@ services:
     ports:
       - "5005:5005"
     volumes:
-      - "./rasa-app-data/:/app"
+      - "./app/:/app"
     command:
       - run
 
@@ -34,7 +34,7 @@ services:
     ports:
       - "5055:5055"
     volumes:
-      - "./rasa-app-data/actions:/app/actions"
+      - "./app/actions:/app/actions"
 
   duckling:
     container_name: duckling
