@@ -16,6 +16,7 @@ services:
 
   rasa:
     image: rasa/rasa:latest-full
+    container_name: rasa
     networks:
       - app-tier
     ports:
@@ -26,6 +27,7 @@ services:
       - run
 
   action_server:
+    container_name: action_server
     image: rasa/rasa-sdk:latest
     networks:
       - app-tier
@@ -35,6 +37,7 @@ services:
       - "./rasa-app-data/actions:/app/actions"
 
   duckling:
+    container_name: duckling
     image: rasa/duckling:latest
     networks:
       - app-tier
