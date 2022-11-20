@@ -1,0 +1,42 @@
+version: "3.9"
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  # rabbit:
+  #   container_name: rabbitmq_rasa
+  #   image: rabbitmq:3.7-management
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
+  #   networks:
+  #     - app-tier
+
+  rasa:
+    image: rasa/rasa:latest-full
+    networks:
+      - app-tier
+    ports:
+      - "5005:5005"
+    volumes:
+      - "./rasa-app-data/:/app"
+    command:
+      - run
+
+  action_server:
+    image: rasa/rasa-sdk:latest
+    networks:
+      - app-tier
+    ports:
+      - "5055:5055"
+    volumes:
+      - "./rasa-app-data/actions:/app/actions"
+
+  duckling:
+    image: rasa/duckling:latest
+    networks:
+      - app-tier
+    ports:
+      - "8000:8000"
